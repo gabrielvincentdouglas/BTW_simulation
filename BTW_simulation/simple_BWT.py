@@ -38,7 +38,7 @@ def topple(grid):
     for i in range(size):
         for j in range(size):
             # Check if the current cell has a value of 4
-            if grid[i, j] == threshold:
+            if grid[i, j] >= threshold:
                 new_grid[i, j] -= 4
                 if i == 0 and j == 0:
                     new_grid[i, j + 1] += 1
@@ -86,7 +86,7 @@ def cylinder_topple(grid):
     for i in range(size):
         for j in range(size):
             # Check if the current cell has a value of 4
-            if grid[i, j] == threshold:
+            if grid[i, j] >= threshold:
                 new_grid[i, j] -= 4
                 if i == 0 and j == 0:
                     new_grid[i, j + 1] += 1
@@ -160,7 +160,7 @@ def random_topple(grid):
     for i in range(size):
         for j in range(size):
             # Check if the current cell has a value of 4
-            if grid[i, j] == threshold:
+            if grid[i, j] >= threshold:
                 new_grid[i, j] -= 4
                 sand_fall = [0, 0, 0, 0]
                 sand_fall = random_sand(sand_fall)
@@ -221,7 +221,7 @@ for i in range(nsteps):
     # Simulate avalanche
     while not np.array_equal(grid, prev_grid):
         prev_grid = grid.copy()
-        grid, unstable = topple(grid)
+        grid, unstable = cylinder_topple(grid)
         topple_record += unstable
     topple_counts.append(np.sum(topple_record))
     area_counts.append(np.sum(topple_record >= 1) / (size*size))
